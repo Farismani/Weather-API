@@ -51,3 +51,5 @@ This project uses the Open-Meteo API, which does not require an API key.
 ## License
 
 This project is open source and available under the MIT License.
+
+deployed link: https://jazzy-kangaroo-1cedc8.netlify.app/
