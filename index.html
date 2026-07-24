@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="WeatherNow is a modern weather dashboard with city search, geolocation, and a 7-day forecast." />
+    <title>WeatherNow</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <div>
+          <p class="eyebrow">Live weather insights</p>
+          <h1>WeatherNow</h1>
+          <p>Check the weather for any city, use your current location, and plan ahead with a 7-day outlook.</p>
+        </div>
+
+        <form class="search-form" id="searchForm">
+          <input id="searchInput" type="text" placeholder="Search for a city" aria-label="Search for a city" />
+          <button class="primary-btn" type="submit">Search</button>
+          <button class="ghost-btn" id="useLocationBtn" type="button">Use my location</button>
+        </form>
+      </section>
+
+      <section class="dashboard">
+        <article class="card">
+          <div class="status-message" id="statusMessage">Loading weather...</div>
+          <div class="current-top">
+            <div>
+              <h2 class="location" id="currentLocation">—</h2>
+              <p class="date" id="currentDate">—</p>
+            </div>
+            <div class="icon-wrap" id="currentIcon" aria-label="Weather icon">☁️</div>
+          </div>
+
+          <div class="temp-row">
+            <h2 id="currentTemp">—</h2>
+            <p id="currentCondition">Waiting for weather data</p>
+          </div>
+
+          <div class="highlights">
+            <div class="highlight">
+              <span class="highlight-label">Feels like</span>
+              <span class="highlight-value" id="feelsLike">—</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-label">Humidity</span>
+              <span class="highlight-value" id="humidity">—</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-label">Wind</span>
+              <span class="highlight-value" id="wind">—</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-label">Pressure</span>
+              <span class="highlight-value" id="pressure">—</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-label">UV index</span>
+              <span class="highlight-value" id="uv">—</span>
+            </div>
+            <div class="highlight">
+              <span class="highlight-label">Sunrise</span>
+              <span class="highlight-value" id="sunrise">—</span>
+            </div>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="card-header">
+            <h2>Recent searches</h2>
+          </div>
+          <ul class="recent-searches" id="recentSearches"></ul>
+
+          <div class="card-header" style="margin-top: 1rem;">
+            <h2>7-day forecast</h2>
+          </div>
+          <div class="forecast-list" id="forecastList"></div>
+        </article>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>

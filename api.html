@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Weather App</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(to right, #4facfe, #00f2fe);
+            color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        h1 {
+            margin-bottom: 20px;
+        }
+
+        input[type="text"] {
+            padding: 10px;
+            border: none;
+            border-radius: 4px;
+            width: 200px;
+            margin-right: 10px;
+        }
+
+        button {
+            padding: 10px 16px;
+            background-color: #0078d4;
+            border: none;
+            border-radius: 4px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #005a9e;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Weather App</h1>
+    <div>
+        <input type="text" id="locationInput" placeholder="Enter location">
+        <button onclick="getWeather()">Get Temperature</button>
+    </div>
+    <div class="result" id="weatherResult"></div>
+
+    <script>
+        async function getWeather() {
+            const location = document.getElementById('locationInput').value.trim();
+            const apiKey = '452551d523f24f9b87e121959252207';
+            if (!location) {
+                document.getElementById('weatherResult').textContent = 'Please enter a location.';
+                return;
+            }
+            try {
+                const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}&aqi=yes`);
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                const data = await response.json();
+                const tempC = data.current.temp_c;
+                document.getElementById('weatherResult').textContent = `Current temperature in ${data.location.name}, ${data.location.country}: ${tempC}°C`;
+            } catch (error) {
+                document.getElementById('weatherResult').textContent = 'Could not fetch weather data. Please check the location.';
+                console.error(error);
+            }
+        }
+    </script>
+</body>
+
+</html>
