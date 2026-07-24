@@ -23,7 +23,7 @@ const LAST_CITY_KEY = 'weather-last-city';
 
 function setStatus(message, isError = false) {
   statusMessage.textContent = message;
-  statusMessage.style.color = isError ? '#ff8a80' : '#7ee787';
+  statusMessage.style.color = isError ? '#ff8a80' : '#8bf0b0';
 }
 
 function saveRecentSearch(city) {
@@ -87,6 +87,24 @@ function getWeatherIcon(code, isDay) {
   return '☁️';
 }
 
+function setWeatherTheme(code, isDay) {
+  let theme = 'cloudy';
+  if (code <= 3) {
+    theme = isDay ? 'clear' : 'cloudy';
+  } else if (code >= 45 && code <= 48) {
+    theme = 'fog';
+  } else if (code >= 51 && code <= 65) {
+    theme = 'rain';
+  } else if (code >= 71 && code <= 75) {
+    theme = 'snow';
+  } else if (code >= 95) {
+    theme = 'storm';
+  }
+
+  document.body.dataset.theme = theme;
+  document.body.dataset.period = isDay ? 'day' : 'night';
+}
+
 function formatDate(value) {
   if (!value) return '—';
   return new Date(value).toLocaleDateString(undefined, {
@@ -105,11 +123,15 @@ function formatTime(value) {
 }
 
 function renderCurrentWeather(weather, locationName) {
+  const description = getWeatherCodeDescription(weather.current.weather_code);
+  const isDay = Boolean(weather.current.is_day);
+
+  setWeatherTheme(weather.current.weather_code, isDay);
   currentLocation.textContent = locationName;
   currentDate.textContent = formatDate(new Date());
-  currentIcon.textContent = getWeatherIcon(weather.current.weather_code, weather.current.is_day);
+  currentIcon.textContent = getWeatherIcon(weather.current.weather_code, isDay);
   currentTemp.textContent = `${Math.round(weather.current.temperature_2m)}°C`;
-  currentCondition.textContent = getWeatherCodeDescription(weather.current.weather_code);
+  currentCondition.textContent = description;
 
   highlights.feelsLike.textContent = `${Math.round(weather.current.apparent_temperature)}°C`;
   highlights.humidity.textContent = `${weather.current.relative_humidity_2m}%`;

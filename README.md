@@ -1,33 +1,49 @@
 # WeatherNow
 
-A polished, GitHub-ready weather dashboard built with vanilla HTML, CSS, and JavaScript. It searches any city, supports geolocation, shows current conditions, and includes a 7-day forecast.
+WeatherNow is a sleek, modern weather dashboard built with vanilla HTML, CSS, and JavaScript. It lets users search for cities, use their current location, and explore live weather details with a polished, minimal interface.
 
 ## Features
 
-- Search any city worldwide
-- Use the browser's geolocation for local conditions
-- View current temperature, humidity, wind, pressure, UV, and sunrise time
-- See a 7-day weather outlook
+- Search for weather by city name
+- Use browser geolocation for local conditions
+- View current temperature, feels-like temperature, humidity, wind, pressure, UV index, and sunrise time
+- Explore a 7-day forecast
 - Save recent searches in the browser
+- Responsive design for desktop and mobile
 - Ready to deploy to GitHub Pages
 
-## Run locally
+## Tech Stack
 
-Open [index.html](index.html) in a browser, or serve the folder with a simple local server:
+- HTML5
+- CSS3
+- JavaScript
+- Open-Meteo API for weather and geocoding data
+
+## Run Locally
+
+Open [index.html](index.html) in your browser, or serve the project from the folder:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open http://localhost:8000.
+Then visit:
 
-## Project structure
+```text
+http://localhost:8000
+```
 
-- [index.html](index.html) — app shell and layout
-- [styles.css](styles.css) — responsive styling
-- [app.js](app.js) — weather API calls and UI rendering
+## Project Structure
+
+- [index.html](index.html) — main app layout
+- [styles.css](styles.css) — visual design and responsive styling
+- [app.js](app.js) — weather data fetching and UI rendering
 - [.github/workflows/deploy.yml](.github/workflows/deploy.yml) — GitHub Pages deployment workflow
 
-## API note
+## API Note
 
 This project uses the Open-Meteo API, which does not require an API key.
+
+## License
+
+This project is open source and available under the MIT License.
