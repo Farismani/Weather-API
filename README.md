@@ -33,6 +33,10 @@ Then visit:
 http://localhost:8000
 ```
 
+## Deploy Elsewhere
+
+This project can also be deployed on Netlify or Vercel with the root folder as the publish directory.
+
 ## Project Structure
 
 - [index.html](index.html) — main app layout
