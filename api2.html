@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>✨ Ultra Weather App ✨</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 40px 30px;
+            backdrop-filter: blur(15px);
+            text-align: center;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+            width: 100%;
+            max-width: 350px;
+            animation: fadeIn 1.2s ease forwards;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h1 {
+            font-size: 2em;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            text-shadow: 0 0 5px #00c6ff, 0 0 10px #0072ff;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 15px;
+            border: none;
+            border-radius: 12px;
+            outline: none;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            font-size: 1em;
+        }
+
+        input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        button {
+            width: 100%;
+            padding: 12px 15px;
+            background: linear-gradient(135deg, #00c6ff, #0072ff);
+            border: none;
+            border-radius: 12px;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 198, 255, 0.6);
+        }
+
+        .result {
+            margin-top: 25px;
+            font-size: 1.3em;
+            line-height: 1.4;
+            min-height: 50px;
+        }
+
+        .icon {
+            margin-top: 15px;
+            width: 80px;
+            height: 80px;
+        }
+
+        .temp {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>✨ Weather Now</h1>
+        <input type="text" id="locationInput" placeholder="Enter city or place">
+        <button onclick="getWeather()">Show Weather</button>
+        <div class="result" id="weatherResult"></div>
+    </div>
+
+    <script>
+        async function getWeather() {
+            const location = document.getElementById('locationInput').value.trim();
+            const apiKey = '452551d523f24f9b87e121959252207';
+            const resultDiv = document.getElementById('weatherResult');
+            resultDiv.innerHTML = 'Loading...';
+
+            if (!location) {
+                resultDiv.textContent = 'Please enter a location.';
+                return;
+            }
+
+            try {
+                const response = await fetch(`http://api.weatherapi.com/v1/current.json?key=${apiKey}&q=${encodeURIComponent(location)}&aqi=yes`);
+                if (!response.ok) throw new Error('Failed to fetch');
+                const data = await response.json();
+
+                const tempC = data.current.temp_c;
+                const iconUrl = 'https:' + data.current.condition.icon;
+                const conditionText = data.current.condition.text;
+                const city = data.location.name;
+                const country = data.location.country;
+
+                resultDiv.innerHTML = `
+      <img class="icon" src="${iconUrl}" alt="${conditionText}">
+      <div class="temp">${tempC}°C</div>
+      <div>${city}, ${country}</div>
+      <div>${conditionText}</div>
+    `;
+            } catch (error) {
+                console.error(error);
+                resultDiv.textContent = 'Could not get weather data. Please check the location.';
+            }
+        }
+    </script>
+</body>
+
+</html>
